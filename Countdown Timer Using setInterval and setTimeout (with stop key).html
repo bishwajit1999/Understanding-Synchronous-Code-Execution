@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Countdown Timer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef2f3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      width: 80%;
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #007bff;
+      color: white;
+      border: none;
+      margin-top: 15px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .output {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+      min-height: 40px;
+    }
+
+    .hint {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Countdown Timer</h2>
+  <input type="number" id="secondsInput" placeholder="Enter seconds to countdown" />
+  <br />
+  <button onclick="startCountdown()">Start Countdown</button>
+  <div class="hint">Press "S" key anytime to stop the timer</div>
+  <div class="output" id="output"></div>
+</div>
+
+<script>
+  let intervalId = null;
+  let isRunning = false;
+
+  function startCountdown() {
+    const secondsInput = document.getElementById("secondsInput");
+    const output = document.getElementById("output");
+    let seconds = parseInt(secondsInput.value);
+
+    if (isNaN(seconds) || seconds <= 0) {
+      output.textContent = "Please enter a valid positive number.";
+      return;
+    }
+
+    if (isRunning) {
+      clearInterval(intervalId);
+    }
+
+    isRunning = true;
+    output.textContent = `Time Remaining: ${seconds}s`;
+
+    intervalId = setInterval(() => {
+      seconds--;
+      if (seconds > 0) {
+        output.textContent = `Time Remaining: ${seconds}s`;
+      } else {
+        clearInterval(intervalId);
+        output.textContent = "Countdown Complete!";
+        isRunning = false;
+      }
+    }, 1000);
+  }
+
+  // Detect "s" key to stop countdown
+  document.addEventListener("keydown", (event) => {
+    if (event.key.toLowerCase() === "s" && isRunning) {
+      clearInterval(intervalId);
+      document.getElementById("output").textContent = "Countdown Stopped by User.";
+      isRunning = false;
+    }
+  });
+</script>
+
+</body>
+</html>
