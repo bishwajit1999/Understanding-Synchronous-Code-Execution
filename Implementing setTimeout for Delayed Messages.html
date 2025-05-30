@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>setTimeout - Delayed Message</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #eef2f3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 500px;
+    }
+
+    button {
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .output {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+      text-align: left;
+    }
+
+    .output p {
+      margin: 6px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Asynchronous Message Demo (setTimeout)</h2>
+    <button onclick="runMessages()">Run Messages</button>
+    <div class="output" id="output"></div>
+  </div>
+
+  <script>
+    function runMessages() {
+      const outputDiv = document.getElementById("output");
+      outputDiv.innerHTML = ""; // Clear previous
+
+      console.log("Message 1");
+      outputDiv.innerHTML += "<p>Message 1</p>";
+
+      setTimeout(() => {
+        console.log("Message 2 after 2 seconds");
+        outputDiv.innerHTML += "<p>Message 2 after 2 seconds</p>";
+      }, 2000);
+
+      console.log("Message 3");
+      outputDiv.innerHTML += "<p>Message 3</p>";
+    }
+  </script>
+</body>
+</html>
