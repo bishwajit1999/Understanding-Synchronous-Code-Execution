@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Loading Simulation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 25px;
+      font-size: 16px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .output {
+      margin-top: 25px;
+      font-size: 18px;
+      color: #444;
+    }
+
+    .dot {
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0% { opacity: 0.2; }
+      50% { opacity: 1; }
+      100% { opacity: 0.2; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Loading Screen Simulation</h2>
+    <button onclick="startLoading()">Start Loading</button>
+    <div class="output" id="output"></div>
+  </div>
+
+  <script>
+    function startLoading() {
+      const output = document.getElementById("output");
+      output.innerHTML = "";
+      let count = 0;
+      const intervalId = setInterval(() => {
+        count++;
+        output.innerHTML += `<p class="dot">Loading...</p>`;
+        if (count === 5) {
+          clearInterval(intervalId);
+          output.innerHTML += `<p style="color: green; font-weight: bold;">Loaded successfully!</p>`;
+        }
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
