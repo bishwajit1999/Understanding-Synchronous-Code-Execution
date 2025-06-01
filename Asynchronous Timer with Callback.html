@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Timer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f0f4f8;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 300px;
+    }
+
+    input {
+      padding: 10px;
+      width: 90%;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #005fa3;
+    }
+
+    #countdown, #message {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Interactive Timer</h2>
+    <input type="number" id="durationInput" placeholder="Enter time in ms" />
+    <button onclick="startTimer()">Start Timer</button>
+    <div id="countdown"></div>
+    <div id="message"></div>
+  </div>
+
+  <script>
+    function timer(duration, onComplete) {
+      let remaining = duration;
+      const countdownDisplay = document.getElementById('countdown');
+      const interval = 100;
+
+      const intervalId = setInterval(() => {
+        remaining -= interval;
+        countdownDisplay.innerText = `Remaining: ${remaining} ms`;
+
+        if (remaining <= 0) {
+          clearInterval(intervalId);
+          onComplete(`Timer of ${duration} ms finished`);
+        }
+      }, interval);
+    }
+
+    function startTimer() {
+      const input = document.getElementById('durationInput');
+      const message = document.getElementById('message');
+      const countdown = document.getElementById('countdown');
+
+      const duration = parseInt(input.value);
+      message.innerText = '';
+      countdown.innerText = '';
+
+      if (isNaN(duration) || duration <= 0) {
+        message.innerText = 'Please enter a valid positive number';
+        return;
+      }
+
+      timer(duration, (msg) => {
+        message.innerText = msg;
+      });
+    }
+  </script>
+</body>
+</html>
