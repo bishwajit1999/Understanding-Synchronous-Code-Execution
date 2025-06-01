@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Async Data Fetch Simulator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eef3f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 300px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    .success {
+      color: green;
+    }
+
+    .error {
+      color: red;
+    }
+
+    .loading {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Data Fetch Simulator</h2>
+    <button onclick="fetchDataHandler()">Fetch Data</button>
+    <div id="result" class="loading">Click the button to fetch data</div>
+  </div>
+
+  <script>
+    // Simulates a 50% chance of success or failure after a delay
+    function fetchData() {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          const isSuccess = Math.random() > 0.5;
+          if (isSuccess) {
+            resolve("Fetched data successfully!");
+          } else {
+            reject(new Error("Network issue or server down."));
+          }
+        }, 1000); // Simulate 1-second delay
+      });
+    }
+
+    // Handles the fetch using async/await and displays result
+    async function fetchDataHandler() {
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = "Fetching data...";
+      resultDiv.className = 'loading';
+
+      try {
+        const result = await fetchData();
+        resultDiv.textContent = result;
+        resultDiv.className = 'success';
+      } catch (error) {
+        resultDiv.textContent = "Error fetching data: " + error.message;
+        resultDiv.className = 'error';
+      }
+    }
+  </script>
+
+</body>
+</html>
